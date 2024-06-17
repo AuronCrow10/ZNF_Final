@@ -108,7 +108,7 @@ const NftSingle = () => {
   useEffect(() => {
     const { data } = getQueryParams(window.location.search);
     setSerie(data);
-    setImage(Number(data) + 1);
+    setImage(Number(data) + 101);
     setLoading(false);
   }, []);
 
@@ -236,23 +236,6 @@ const NftSingle = () => {
                   Let’s forge a legacy together and enhance the value of your
                   personal collection!
                 </p>
-              </div>
-              <div className="view_on">
-                <ul>
-                  <li>
-                    <span>View On:</span>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/svg/opensea.svg" alt="" className="fn__svg" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/svg/portal.svg" alt="" className="fn__svg" />
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

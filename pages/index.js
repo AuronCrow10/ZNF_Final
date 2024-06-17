@@ -134,7 +134,7 @@ const Index = () => {
       {/*<About/>*/}
       <About2 isActive={isActive} />
       <SectionDivider />
-      <RoadMapSlider />
+      {/* <RoadMapSlider /> */}
       {/*<SectionDivider />
 		<Collection />*/}
     </Layout>

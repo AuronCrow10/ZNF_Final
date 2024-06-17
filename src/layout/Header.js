@@ -45,11 +45,6 @@ const Header = ({
                   <a className="creative_link">Home</a>
                 </Link>
               </li>
-              <li>
-                <Link href="/#roadmap">
-                  <a className="creative_link">Roadmap</a>
-                </Link>
-              </li>
               {balance > 0 ? (
                 <li>
                   <Link href="/profile">

@@ -103,12 +103,12 @@ export const About2 = (isActive) => (
             </ul>
           </div>
           <a
-            href="https://x.com/znf_world"
+            href=""
             className="metaportal_fn_button"
             target="_blank"
             rel="noreferrer"
           >
-            <span>Find us On X</span>
+            <span>Buy on Opensea</span>
           </a>
         </div>
         <div className="about_right">
@@ -198,19 +198,22 @@ export const About2 = (isActive) => (
             Join Our Community
           </h3>
           <p>
-            There are many variations of passages of lorem ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which {`don't`} look even slightly
-            believable.
+            Are you ready to dive into the captivating world of collectible
+            NFTs? Whether you’re a seasoned expert or just embarking on this
+            journey, our vibrant community awaits you. Connect with like-minded
+            individuals who share your enthusiasm, and together, let’s forge a
+            legacy. These NFT coins aren’t just tokens; they’re gateways to
+            creativity, innovation, and generational impact. Join us today, and
+            let’s create something extraordinary—one NFT at a time!
           </p>
           <div className="buttons">
             <a
-              href="https://opensea.io/"
+              href="https://x.com/znf_world"
               className="metaportal_fn_button"
               target="_blank"
               rel="noreferrer"
             >
-              <span>Buy On Opensea</span>
+              <span>Find us on X</span>
             </a>
           </div>
         </div>
