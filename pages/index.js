@@ -15,7 +15,6 @@ import {
 import { BrowserProvider, Contract, formatUnits, getAddress } from "ethers";
 import ABI from "../src/components/ABI.json";
 import React, { useState } from "react";
-import Modal from "react-modal";
 
 const { Alchemy, Network } = require("alchemy-sdk");
 const config = {
@@ -25,7 +24,7 @@ const config = {
 const alchemy = new Alchemy(config);
 
 const Index = () => {
-  const contractAddress = "0x73dF0310829e4eD0AD4C82B0A117a74Cd0856e03";
+  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -134,7 +133,7 @@ const Index = () => {
       {/*<About/>*/}
       <About2 isActive={isActive} />
       <SectionDivider />
-      {/* <RoadMapSlider /> */}
+      <RoadMapSlider />
       {/*<SectionDivider />
 		<Collection />*/}
     </Layout>

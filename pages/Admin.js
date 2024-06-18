@@ -45,7 +45,7 @@ const AdminPanel = () => {
   const [royaltyA, setRA] = useState("");
   const [royaltyF, setRF] = useState(0);
 
-  const contractAddress = "0x73dF0310829e4eD0AD4C82B0A117a74Cd0856e03";
+  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -148,23 +148,11 @@ const AdminPanel = () => {
   }
 
   function handlePerc1(e) {
-    if (e.target.value > 99) {
-      setPerc1(99);
-    } else if (e.target.value < 1) {
-      setPerc1(1);
-    } else {
-      setPerc1(e.target.value);
-    }
+    setPerc1(e.target.value);
   }
 
   function handlePerc2(e) {
-    if (e.target.value > 99) {
-      setPerc2(99);
-    } else if (e.target.value < 1) {
-      setPerc2(1);
-    } else {
-      setPerc2(e.target.value);
-    }
+    setPerc2(e.target.value);
   }
 
   function handleETimeChange(e) {
@@ -238,10 +226,14 @@ const AdminPanel = () => {
   }
 
   async function insertPerc() {
-    try {
-      await myContract.setPercent(perc1, perc2);
-    } catch (error) {
-      alert(error);
+    if (Number(perc1) + Number(perc2) == 100) {
+      try {
+        await myContract.setPercent(perc1, perc2);
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      alert("Wrong Percentages. Perc1 + Perc2 must be equal to 100!");
     }
   }
 
@@ -602,7 +594,6 @@ const AdminPanel = () => {
                       onChange={(e) => handlePerc1(e)}
                       min="1"
                       max="99"
-                      value={perc1}
                     ></input>
                     <input
                       type="number"
@@ -610,7 +601,6 @@ const AdminPanel = () => {
                       onChange={(e) => handlePerc2(e)}
                       min="1"
                       max="99"
-                      value={perc2}
                     ></input>
                     <span className="metaportal_fn_button" onClick={insertPerc}>
                       Insert

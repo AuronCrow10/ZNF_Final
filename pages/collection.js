@@ -11,7 +11,7 @@ import {
 import { useWeb3Modal } from "@web3modal/ethers/react";
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 const Collection = ({ getNfts, nfts }) => {
-  const contractAddress = "0x73dF0310829e4eD0AD4C82B0A117a74Cd0856e03";
+  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 

@@ -573,6 +573,20 @@ a.full_link {
   align-items: center;
 }
 
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 0.5;
+  }
+}
+
+.flashing {
+  animation: blink 2s linear infinite;
+}
+
 /* Social Icons */
 #social {
   z-index: 5;
@@ -6726,6 +6740,9 @@ a {
   padding: 20px;
   border-radius: 5px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modal-close {

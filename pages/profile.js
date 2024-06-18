@@ -10,13 +10,19 @@ import { dataLength, formatEther, getAddress, parseEther } from "ethers";
 import { BrowserProvider, Contract } from "ethers";
 import ABI from "../src/components/ABI.json";
 import PageBanner from "../src/layout/PageBanner";
+import Modal from "../src/components/popup/Modal";
 
 const Profile = () => {
   const [myContract, setContract] = useState({});
   const [load, setLoad] = useState(true);
   const [items, setItems] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [errDesc, setErrDesc] = useState(
+    "There was an issue with your transaction"
+  );
+  const [errString, setErr] = useState("Something went wrong!");
 
-  const contractAddress = "0x73dF0310829e4eD0AD4C82B0A117a74Cd0856e03";
+  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -91,21 +97,34 @@ const Profile = () => {
     setContract(myContract);
   }
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   async function sell(token) {
-    console.log(token);
     const ethersProvider = new BrowserProvider(walletProvider);
     const signer = await ethersProvider.getSigner();
     // The Contract object
     const myContract = new Contract(contractAddress, ABI, signer);
-    const isApproved = await myContract.isApprovedForAll(
-      address,
-      contractAddress
-    );
-    if (!isApproved) {
-      await (await myContract.setApprovalForAll(contractAddress, true)).wait();
+    try {
+      await (await myContract.sellNft(token)).wait();
+      setErr("Sold Succesfully!");
+      setErrDesc(
+        "You succesfully sold your NFT. Funds are on their way to your wallet!"
+      );
+      handleOpenModal();
+    } catch (error) {
+      if (error.info.error.message != undefined) {
+        setErrDesc(error.info.error.message);
+      } else if (error.reason != undefined) {
+        setErrDesc(error.reason);
+      }
+      handleOpenModal();
     }
-    await (await myContract.sellNft(token)).wait();
-    alert("Sold");
   }
 
   if (load && walletProvider) {
@@ -129,6 +148,10 @@ const Profile = () => {
 
             {/* !Filters */}
             <div className="metaportal_fn_clist">
+              <Modal show={showModal} onClose={handleCloseModal}>
+                <h2>{errString}</h2>
+                <p>{errDesc}</p>
+              </Modal>
               {/* Result Box */}
               {/* Result List */}
               <div className="metaportal_fn_result_list">

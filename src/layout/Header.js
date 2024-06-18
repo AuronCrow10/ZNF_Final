@@ -17,9 +17,11 @@ const Header = ({
   }, []);
 
   let string = "Connect Wallet";
+  let myClass = "flashing";
 
   if (isConnected) {
     string = address.slice(0, 4) + "..." + address.slice(36, 42);
+    myClass = "none";
   }
 
   return (
@@ -71,7 +73,7 @@ const Header = ({
               onClick={() => open()}
               className="metaportal_fn_button wallet_opener"
             >
-              <span>{string}</span>
+              <span className={myClass}>{string}</span>
             </a>
           </div>
         </div>

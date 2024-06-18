@@ -12,6 +12,7 @@ import { formatEther, parseEther, parseUnits } from "ethers";
 import { BrowserProvider, Contract } from "ethers";
 import ABI from "../src/components/ABI.json";
 import Countdown from "../src/components/Countdown";
+import Modal from "../src/components/popup/Modal";
 
 let array = [
   "active_bg_red",
@@ -45,8 +46,9 @@ const NftSingle = () => {
   const [image, setImage] = useState(0);
   const [price, setPrice] = useState(0);
   const [balance, setBalance] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
-  const contractAddress = "0x73dF0310829e4eD0AD4C82B0A117a74Cd0856e03";
+  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -91,6 +93,10 @@ const NftSingle = () => {
   const { isConnected, address } = useWeb3ModalAccount();
   const { open } = useWeb3Modal();
   const { walletProvider } = useWeb3ModalProvider();
+  const [errDesc, setErrDesc] = useState(
+    "There was an issue with your transaction, please check your balance or try again later!"
+  );
+  const [errString, setErr] = useState("Something went wrong!");
 
   const getQueryParams = (query) => {
     return query
@@ -124,6 +130,14 @@ const NftSingle = () => {
     setLoad(true);
   }
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   async function getData() {
     const ethersProvider = new BrowserProvider(walletProvider);
     const signer = await ethersProvider.getSigner();
@@ -155,17 +169,26 @@ const NftSingle = () => {
     // The Contract object
     const myContract = new Contract(contractAddress, ABI, signer);
     const price = calculate();
-    console.log(price);
+    console.log(serie);
     try {
       await (
         await myContract.mint(quantity, serie, {
           value: parseEther(price),
         })
       ).wait();
-      alert("Minted Succesfully!");
       getData();
+      setErr("Minted Succesfully!");
+      setErrDesc(
+        "Your NFT has been minted succesfully. You can view it on your profile page!"
+      );
+      handleOpenModal();
     } catch (error) {
-      alert("Something went wrong! Check your balance and try again!");
+      if (error.info.error.message != undefined) {
+        setErrDesc(error.info.error.message);
+      } else if (error.reason != undefined) {
+        setErrDesc(error.reason);
+      }
+      handleOpenModal();
     }
   }
 
@@ -214,6 +237,12 @@ const NftSingle = () => {
                 <div className="img_in">
                   <img src={"/img/" + image + ".png"} />
                 </div>
+              </div>
+              <div>
+                <Modal show={showModal} onClose={handleCloseModal}>
+                  <h2>{errString}</h2>
+                  <p>{errDesc}</p>
+                </Modal>
               </div>
             </div>
             <div className="mint_right">
