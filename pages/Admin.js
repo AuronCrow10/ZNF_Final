@@ -44,8 +44,11 @@ const AdminPanel = () => {
   const [eTime, setETime] = useState("");
   const [royaltyA, setRA] = useState("");
   const [royaltyF, setRF] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [decimals, setDecimals] = useState(0);
+  const [receiver, setReceiver] = useState("");
 
-  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
+  const contractAddress = "0x384514A553304a14DBFF07F146dF497D4d787a35";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -167,6 +170,34 @@ const AdminPanel = () => {
 
   function handleRoyaltyF(e) {
     setRF(e.target.value);
+  }
+
+  function handlePriceChange(e) {
+    setPrice(e.target.value);
+  }
+
+  function handleDecimalsChange(e) {
+    setDecimals(e.traget.value);
+  }
+
+  function handleReceiverChange(e) {
+    setReceiver(e.target.value);
+  }
+
+  async function updateReceiver() {
+    try {
+      await myContract.setNFTReceiver(receiver);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  async function updatePrice() {
+    try {
+      await myContract.setPrice(price, decimals);
+    } catch (error) {
+      alert(error);
+    }
   }
 
   async function pause() {
@@ -361,6 +392,25 @@ const AdminPanel = () => {
                     ></input>
                     <span className="metaportal_fn_button" onClick={airdrop}>
                       Airdrop
+                    </span>
+                  </div>
+                  <div className="mint_info" style={{ marginTop: "5%" }}>
+                    <h4>Change Base Price</h4>
+                    <input
+                      type="number"
+                      placeholder="Base Price"
+                      onChange={(e) => handlePriceChange(e)}
+                    ></input>
+                    <input
+                      type="number"
+                      placeholder="Decimals"
+                      onChange={(e) => handleDecimalsChange(e)}
+                    ></input>
+                    <span
+                      className="metaportal_fn_button"
+                      onClick={updatePrice}
+                    >
+                      Set Price
                     </span>
                   </div>
                 </div>
@@ -637,6 +687,20 @@ const AdminPanel = () => {
                       onClick={insertRoyalty}
                     >
                       Insert
+                    </span>
+                  </div>
+                  <div className="mint_time">
+                    <h4>Set NFT Receiver</h4>
+                    <input
+                      type="text"
+                      placeholder="NFT Receiver"
+                      onChange={(e) => handleReceiverChange(e)}
+                    ></input>
+                    <span
+                      className="metaportal_fn_button"
+                      onClick={updateReceiver}
+                    >
+                      Set Receiver
                     </span>
                   </div>
                 </div>

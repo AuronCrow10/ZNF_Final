@@ -16,7 +16,7 @@ const Header = ({
     stickyNav();
   }, []);
 
-  let string = "Connect Wallet";
+  let string = "Connect Wallet to Access";
   let myClass = "flashing";
 
   if (isConnected) {

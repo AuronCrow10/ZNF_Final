@@ -48,7 +48,7 @@ const NftSingle = () => {
   const [balance, setBalance] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  const contractAddress = "0xaE957748a0e9d4B0330f4e5e601d6f96f60792ee";
+  const contractAddress = "0x384514A553304a14DBFF07F146dF497D4d787a35";
 
   const projectId = "e1b5abe839a71edd27768a2617f23b97";
 
@@ -184,7 +184,7 @@ const NftSingle = () => {
       handleOpenModal();
     } catch (error) {
       if (error.info.error.message != undefined) {
-        setErrDesc(error.info.error.message);
+        setErrDesc(error.info.error.message.slice(0, 50) + "...");
       } else if (error.reason != undefined) {
         setErrDesc(error.reason);
       }

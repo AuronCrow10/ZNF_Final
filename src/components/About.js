@@ -215,6 +215,14 @@ export const About2 = (isActive) => (
             >
               <span>Find us on X</span>
             </a>
+            <a
+              href="https://discord.gg/Xwv7M8XjtY"
+              className="metaportal_fn_button"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Find us on Discord</span>
+            </a>
           </div>
         </div>
       </div>
