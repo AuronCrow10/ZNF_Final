@@ -37,12 +37,25 @@ const Navigation = ({ navigation, navigationToggle }) => {
               <li>
                 <div className="item">
                   <a
-                    href="https://x.com/znf_world"
+                    href="https://discord.gg/Xwv7M8XjtY"
                     target="_blank"
                     rel="noreferrer"
                   />
                   <span className="icon">
                     <img src="/img/market/discord.png" alt="" />
+                  </span>
+                  <span className="text">Discord</span>
+                </div>
+              </li>
+              <li>
+                <div className="item">
+                  <a
+                    href="https://x.com/znf_world"
+                    target="_blank"
+                    rel="noreferrer"
+                  />
+                  <span className="icon">
+                    <img src="/img/market/x.png" alt="" />
                   </span>
                   <span className="text">X</span>
                 </div>
