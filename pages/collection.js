@@ -11,17 +11,17 @@ import {
 import { useWeb3Modal } from "@web3modal/ethers/react";
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 const Collection = ({ getNfts, nfts }) => {
-  const contractAddress = "0x384514A553304a14DBFF07F146dF497D4d787a35";
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
-  const projectId = "e1b5abe839a71edd27768a2617f23b97";
+  const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
   // 2. Set chains
   const mainnet = {
-    chainId: 11155111,
-    name: "Sepolia",
+    chainId: 1,
+    name: "Ethereum",
     currency: "ETH",
-    explorerUrl: "https://sepolia.etherscan.io/",
-    rpcUrl: "https://sepolia.drpc.org",
+    explorerUrl: "https://etherscan.io",
+    rpcUrl: "https://cloudflare-eth.com",
   };
 
   // 3. Create a metadata object

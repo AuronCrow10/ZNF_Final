@@ -16,25 +16,27 @@ import { BrowserProvider, Contract, formatUnits, getAddress } from "ethers";
 import ABI from "../src/components/ABI.json";
 import React, { useState } from "react";
 
+console.log(process.env);
+
 const { Alchemy, Network } = require("alchemy-sdk");
 const config = {
-  apiKey: "zGPmNTo5IY3XB05quux8C0HWIuDl9VMV",
-  network: Network.ETH_SEPOLIA,
+  apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
+  network: Network.ETH_MAINNET,
 };
 const alchemy = new Alchemy(config);
 
 const Index = () => {
-  const contractAddress = "0x384514A553304a14DBFF07F146dF497D4d787a35";
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
-  const projectId = "e1b5abe839a71edd27768a2617f23b97";
+  const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
   // 2. Set chains
   const mainnet = {
-    chainId: 11155111,
-    name: "Sepolia",
+    chainId: 1,
+    name: "Ethereum",
     currency: "ETH",
-    explorerUrl: "https://sepolia.etherscan.io/",
-    rpcUrl: "https://sepolia.drpc.org",
+    explorerUrl: "https://etherscan.io",
+    rpcUrl: "https://cloudflare-eth.com",
   };
 
   // 3. Create a metadata object
