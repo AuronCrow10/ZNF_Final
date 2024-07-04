@@ -47,12 +47,24 @@ const AdminPanel = () => {
   const [price, setPrice] = useState(0);
   const [decimals, setDecimals] = useState(0);
   const [receiver, setReceiver] = useState("");
+  const [isWhitelist, setWhitelist] = useState(false);
+  const [amount, setAmount] = useState("");
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
   const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
   // 2. Set chains
+
+  const mainnet = {
+    chainId: 11155111,
+    name: "Sepolia",
+    currency: "ETH",
+    explorerUrl: "https://sepolia.etherscan.io/",
+    rpcUrl: "https://sepolia.drpc.org",
+  };
+
+  /*
   const mainnet = {
     chainId: 1,
     name: "Ethereum",
@@ -60,6 +72,7 @@ const AdminPanel = () => {
     explorerUrl: "https://etherscan.io",
     rpcUrl: "https://cloudflare-eth.com",
   };
+  */
 
   // 3. Create a metadata object
   const metadata = {
@@ -102,6 +115,8 @@ const AdminPanel = () => {
     const owner = await contract.owner();
     if (getAddress(owner) == address) {
       setOwner(true);
+      const wlist = await contract.isWhitelist();
+      setWhitelist(wlist);
       let tArray = [];
       for (let i = 0; i < 6; i++) {
         const result = Number(await contract.serieToSells(i));
@@ -177,11 +192,16 @@ const AdminPanel = () => {
   }
 
   function handleDecimalsChange(e) {
-    setDecimals(e.traget.value);
+    setDecimals(e.target.value);
+    console.log(e.target.value);
   }
 
   function handleReceiverChange(e) {
     setReceiver(e.target.value);
+  }
+
+  function handleAmountChange(e) {
+    setAmount(e.target.value);
   }
 
   async function updateReceiver() {
@@ -219,6 +239,7 @@ const AdminPanel = () => {
   async function toggle() {
     try {
       await myContract.toggleWhitelist();
+      getData();
     } catch (error) {
       alert(error);
     }
@@ -270,7 +291,7 @@ const AdminPanel = () => {
 
   async function withdraw() {
     try {
-      await myContract.withdraw();
+      await myContract.withdraw(parseEther(amount));
     } catch (error) {
       alert(error);
     }
@@ -360,6 +381,16 @@ const AdminPanel = () => {
                       marked as whitelisted.
                     </p>
                   </div>
+                  <div className="mint_desc">
+                    <p>
+                      Current Whitelist state:{" "}
+                      {isWhitelist ? (
+                        <p style={{ color: "green" }}> Enabled</p>
+                      ) : (
+                        <p style={{ color: "red" }}> Disabled</p>
+                      )}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="mint_right">
@@ -387,8 +418,8 @@ const AdminPanel = () => {
                     ></input>
                     <input
                       type="number"
-                      placeholder="Serie"
                       onChange={(e) => handleSerieChange(e)}
+                      value={serie}
                     ></input>
                     <span className="metaportal_fn_button" onClick={airdrop}>
                       Airdrop
@@ -661,6 +692,11 @@ const AdminPanel = () => {
               <div className="mint_right">
                 <div className="mright">
                   <div className="mint_time">
+                    <input
+                      type="text"
+                      placeholder="Amount to Withdraw"
+                      onChange={(e) => handleAmountChange(e)}
+                    ></input>
                     <span className="metaportal_fn_button" onClick={withdraw}>
                       Withdraw
                     </span>

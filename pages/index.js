@@ -31,6 +31,16 @@ const Index = () => {
   const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
   // 2. Set chains
+
+  const mainnet = {
+    chainId: 11155111,
+    name: "Sepolia",
+    currency: "ETH",
+    explorerUrl: "https://sepolia.etherscan.io/",
+    rpcUrl: "https://sepolia.drpc.org",
+  };
+
+  /*
   const mainnet = {
     chainId: 1,
     name: "Ethereum",
@@ -38,7 +48,7 @@ const Index = () => {
     explorerUrl: "https://etherscan.io",
     rpcUrl: "https://cloudflare-eth.com",
   };
-
+*/
   // 3. Create a metadata object
   const metadata = {
     name: "My Website",

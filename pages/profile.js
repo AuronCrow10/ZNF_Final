@@ -29,6 +29,16 @@ const Profile = () => {
   const amounts = [100, 200, 500, 1000, 2000, 5000];
 
   // 2. Set chains
+
+  const mainnet = {
+    chainId: 11155111,
+    name: "Sepolia",
+    currency: "ETH",
+    explorerUrl: "https://sepolia.etherscan.io/",
+    rpcUrl: "https://sepolia.drpc.org",
+  };
+
+  /*
   const mainnet = {
     chainId: 1,
     name: "Ethereum",
@@ -36,7 +46,7 @@ const Profile = () => {
     explorerUrl: "https://etherscan.io",
     rpcUrl: "https://cloudflare-eth.com",
   };
-
+*/
   // 3. Create a metadata object
   const metadata = {
     name: "My Website",
