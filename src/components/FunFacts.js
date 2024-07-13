@@ -4,7 +4,8 @@ const Counter = dynamic(() => import("./Counter"), {
   ssr: false,
 });
 
-const FunFacts = (supply, owners) => {
+const FunFacts = (supply) => {
+  console.log(supply);
   return (
     <section id="fun_facts">
       <div className="container">
@@ -35,7 +36,7 @@ const FunFacts = (supply, owners) => {
               <div className="item">
                 <h3 className="fn__gradient_title">
                   <span className="prefix" />
-                  <Counter end={0.5} decimals={2} />
+                  <Counter end={supply.price} decimals={2} />
                   <span className="suffix" />
                 </h3>
                 <p>Base Price (ETH)</p>

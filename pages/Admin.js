@@ -29,6 +29,8 @@ let names = [
   "Serie 5000",
 ];
 
+const dropdownValues = [100, 200, 500, 1000, 2000, 5000];
+
 const AdminPanel = () => {
   const [loading, setLoading] = useState(true);
   const [isOwner, setOwner] = useState(false);
@@ -150,6 +152,10 @@ const AdminPanel = () => {
     console.log(aAddress);
   }
 
+  const handleDropdownChange = (e) => {
+    handleSerieChange({ target: { value: e.target.value } });
+  };
+
   function handleSerieChange(e) {
     setSerie(e.target.value);
     console.log(serie);
@@ -254,6 +260,7 @@ const AdminPanel = () => {
   }
 
   async function airdrop() {
+    console.log(serie);
     try {
       await myContract.airdrop(aAddress, serie);
     } catch (error) {
@@ -416,11 +423,13 @@ const AdminPanel = () => {
                       placeholder="Address"
                       onChange={(e) => handleAAChange(e)}
                     ></input>
-                    <input
-                      type="number"
-                      onChange={(e) => handleSerieChange(e)}
-                      value={serie}
-                    ></input>
+                    <select onChange={handleDropdownChange} value={serie}>
+                      {dropdownValues.map((value, index) => (
+                        <option key={index} value={index}>
+                          {value}
+                        </option>
+                      ))}
+                    </select>
                     <span className="metaportal_fn_button" onClick={airdrop}>
                       Airdrop
                     </span>

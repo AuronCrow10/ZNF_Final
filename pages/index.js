@@ -12,7 +12,13 @@ import {
   useWeb3ModalProvider,
   useWeb3ModalAccount,
 } from "@web3modal/ethers/react";
-import { BrowserProvider, Contract, formatUnits, getAddress } from "ethers";
+import {
+  BrowserProvider,
+  Contract,
+  formatUnits,
+  formatEther,
+  getAddress,
+} from "ethers";
 import ABI from "../src/components/ABI.json";
 import React, { useState } from "react";
 
@@ -87,6 +93,7 @@ const Index = () => {
   const [balance, setBalance] = useState(0);
   const [supply, setSupply] = useState(0);
   const [owners, setOwners] = useState(0);
+  const [price, setPrice] = useState(0);
   const [isActive, setActive] = useState([
     false,
     false,
@@ -107,6 +114,10 @@ const Index = () => {
     const owner = await myContract.owner();
     const owners = await alchemy.nft.getOwnersForContract(contractAddress);
     const balance = await myContract.balanceOf(address);
+    const basePrice = await myContract.basePrice();
+    const decimals = await myContract.decimals();
+    console.log(basePrice);
+    console.log(decimals);
     let activated = [];
     for (let i = 0; i < 6; i++) {
       const isActive = await myContract.isSerieActive(i);
@@ -121,6 +132,7 @@ const Index = () => {
     setActive(activated);
     setOwners(Number(owners.owners.length));
     setBalance(balance);
+    setPrice(formatUnits(Number(basePrice), 18 - Number(decimals)));
 
     if (getAddress(owner) == address) {
       setOwner(true);
@@ -141,7 +153,7 @@ const Index = () => {
       balance={balance}
     >
       <HeroSlider />
-      <FunFacts supply={supply} owners={owners} />
+      <FunFacts supply={supply} owners={owners} price={price} />
       {/*<About/>*/}
       <About2 isActive={isActive} />
       <SectionDivider />
